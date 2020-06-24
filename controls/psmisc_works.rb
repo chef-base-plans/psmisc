@@ -7,9 +7,9 @@ control 'core-plans-psmisc-works' do
   impact 1.0
   title 'Ensure psmisc works as expected'
   desc '
-  Verify psmisc by ensuring 
-  (1) its installation directory exists and 
-  (2) that it all executables beneath bin return the expected
+  Verify psmisc by ensuring that
+  (1) its installation directory exists 
+  (2) all executables beneath bin return the expected
   version: fuser, killall, peekfd, prtstat, pslog, and pstree.
   '
   
@@ -72,13 +72,13 @@ control 'core-plans-psmisc-works' do
     its('stdout') { should be_empty }
   end
 
-    # pstree
-    pstree_full_path = File.join(plan_installation_directory.stdout.strip, "bin/pstree")
-    describe command("#{pstree_full_path} --version") do
-      its('exit_status') { should eq 0 }
-      its('stderr') { should_not be_empty }
-      its('stderr') { should match /pstree \(PSmisc\) #{plan_pkg_version}/ }
-      its('stdout') { should be_empty }
-    end
+  # pstree
+  pstree_full_path = File.join(plan_installation_directory.stdout.strip, "bin/pstree")
+  describe command("#{pstree_full_path} --version") do
+    its('exit_status') { should eq 0 }
+    its('stderr') { should_not be_empty }
+    its('stderr') { should match /pstree \(PSmisc\) #{plan_pkg_version}/ }
+    its('stdout') { should be_empty }
+  end
 
 end
