@@ -17,46 +17,20 @@ control 'core-plans-psmisc-exists' do
     its('stderr') { should be_empty }
   end
 
-  # fuser
-  fuser_full_path = File.join(plan_installation_directory.stdout.strip, "bin/fuser")
-  describe file(fuser_full_path) do
-    it { should exist }
-    it { should be_executable }
-  end
-
-  # killall
-  killall_full_path = File.join(plan_installation_directory.stdout.strip, "bin/killall")
-  describe file(killall_full_path) do
-    it { should exist }
-    it { should be_executable }
-  end
-
-  # peekfd
-  peekfd_full_path = File.join(plan_installation_directory.stdout.strip, "bin/peekfd")
-  describe file(peekfd_full_path) do
-    it { should exist }
-    it { should be_executable }
-  end
-
-  # prtstat
-  prtstat_full_path = File.join(plan_installation_directory.stdout.strip, "bin/prtstat")
-  describe file(prtstat_full_path) do
-    it { should exist }
-    it { should be_executable }
-  end
-
-  # pslog
-  pslog_full_path = File.join(plan_installation_directory.stdout.strip, "bin/pslog")
-  describe file(pslog_full_path) do
-    it { should exist }
-    it { should be_executable }
-  end
-
-  # pstree
-  pstree_full_path = File.join(plan_installation_directory.stdout.strip, "bin/pstree")
-  describe file(pstree_full_path) do
-    it { should exist }
-    it { should be_executable }
+  [
+    "fuser",
+    "killall",
+    "peekfd",
+    "prtstat",
+    "pslog",
+    "pstree",
+    "pstree.x11",
+  ].each do |binary_name|
+    command_full_path = File.join(plan_installation_directory.stdout.strip, "bin", binary_name)
+    describe file(command_full_path) do
+      it { should exist }
+      it { should be_executable }
+    end
   end
 
 end
